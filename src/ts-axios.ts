@@ -1,15 +1,15 @@
 // Import here Polyfills if needed. Recommended core-js (npm i -D core-js)
 // import "core-js/fn/array.find"
 // ...
-import { AxiosRequestConfig } from './types'
+import { AxiosRequestConfig, AxiosResponse } from './types'
 import xhr from './xhr'
 import { buildURL } from './helpers/url'
-import { transformRequest } from './helpers/data'
+import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 
 function axios(config: AxiosRequestConfig) {
   processConfig(config)
-  xhr(config)
+  return xhr(config).then(response => transformResponseData(response))
 }
 
 function processConfig(config: AxiosRequestConfig): void {
@@ -31,6 +31,12 @@ function transformHeader(config: AxiosRequestConfig): any {
 function transformRequestData(config: AxiosRequestConfig): any {
   const { data } = config
   return transformRequest(data)
+}
+
+function transformResponseData(response: AxiosResponse): AxiosResponse {
+  const { data } = response
+  response.data = transformResponse(data)
+  return response
 }
 
 export default axios
