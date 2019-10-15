@@ -68,3 +68,17 @@ export interface AxiosInstance extends Axios {
   // 函数重载
   <T = any>(url: string, config?: any): AxiosPromise<T>
 }
+
+export interface AxiosInterceptorManager<T> {
+  use(resolve: ResolveFn<T>, rejected: RejectedFn): number
+
+  eject(id: number): void
+}
+
+export interface ResolveFn<T> {
+  (val: T): T | Promise<T>
+}
+
+export interface RejectedFn {
+  (error: any): any
+}

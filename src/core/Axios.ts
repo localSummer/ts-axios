@@ -2,7 +2,7 @@ import dispatchRequest from './dispatchRequest'
 import { AxiosRequestConfig, AxiosPromise, Method } from '../types'
 
 export default class Axios {
-  // 底层调用都是request方法
+  // axios就是request方法
   request<T = any>(url: string | AxiosRequestConfig, config?: any): AxiosPromise<T> {
     if (typeof url === 'string') {
       if (!config) {
