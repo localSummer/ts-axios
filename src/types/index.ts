@@ -64,4 +64,7 @@ export interface Axios {
 // 定义函数及函数上的方法
 export interface AxiosInstance extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
+
+  // 函数重载
+  (url: string, config?: any): AxiosPromise
 }
