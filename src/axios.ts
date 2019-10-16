@@ -3,11 +3,12 @@
 // ...
 
 import Axios from './core/Axios'
-import { AxiosInstance } from './types/index'
+import { AxiosInstance, AxiosRequestConfig } from './types/index'
 import { extend } from './helpers/util'
+import defaults from './default'
 
-function createInstence(): AxiosInstance {
-  const context = new Axios()
+function createInstence(initConfig: AxiosRequestConfig): AxiosInstance {
+  const context = new Axios(initConfig)
   // 类里面的实例方法都挂载在对应类函数的原型上
   const instance = Axios.prototype.request.bind(context)
   // 将Axios类里面的实例方法挂载在instance函数下
@@ -15,6 +16,6 @@ function createInstence(): AxiosInstance {
   return instance as AxiosInstance
 }
 
-const axios = createInstence()
+const axios = createInstence(defaults)
 
 export default axios
